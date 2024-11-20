@@ -36,6 +36,11 @@ class GamerView(ViewSet):
     
         serializer = GamerSerializer(gamers, many=True)
         return Response(serializer.data)
+      
+    def destroy(self, request, pk):
+      gamer = Gamer.objects.get(pk=pk)
+      gamer.delete()
+      return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 class GamerSerializer(serializers.ModelSerializer):
     """JSON serializer for game types
